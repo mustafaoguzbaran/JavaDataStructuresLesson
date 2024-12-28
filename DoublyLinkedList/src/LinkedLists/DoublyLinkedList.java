@@ -28,7 +28,7 @@ public class DoublyLinkedList {
         }
     }
 
-   public void write() {
+    public void write() {
         Node temp = head;
         if (head == null) {
             System.out.println("Bağlı liste boş.");
@@ -59,5 +59,45 @@ public class DoublyLinkedList {
             }
         }
     }
-    
+
+    public void insertion(int indis, int x) {
+        Node element = new Node(x);
+
+        if (head == null) {
+            head = element;
+            tail = element;
+        } else if (head != null && indis == 0) {
+            element.next = head;
+            head.prev = element;
+            head = element;
+        } else {
+            int linkedListCounter = 0;
+            Node temp = head;
+            while (temp != null) {
+                temp = temp.next;
+                linkedListCounter++;
+            }
+
+            temp = head;
+
+            if (indis > linkedListCounter - 1) { // son indis'e eşitse yani tail'e ekleme yapıyorsak tail'in ilerisine ekleme yapacağız.
+                tail.next = element;
+                element.prev = tail;
+                tail = element;
+            } else {
+                int i = 0;
+
+                while (indis != i) {
+                    temp = temp.next;
+                    i++;
+                }
+                element.prev = temp.prev;
+                temp.prev.next = element;
+                element.next = temp;
+                temp.prev = element;
+
+            }
+        }
+    }
+
 }
